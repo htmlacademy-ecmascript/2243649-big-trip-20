@@ -1,7 +1,9 @@
 # Проект «Большое путешествие»
 
 * Студент: [Виктория  Жигалко](https://up.htmlacademy.ru/ecmascript/20/user/2243649).
-* Наставник: [Сергей Рожков] (https://htmlacademy.ru/profile/id1069033).
+
+* Наставник: [Сергей Рожков](https://htmlacademy.ru/profile/id1069033).
+
 
 ---
 
