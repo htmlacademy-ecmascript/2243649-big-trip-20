@@ -4,24 +4,27 @@ import EditEventView from '../view/edit-event-view.js';
 import EventListView from '../view/event-list-view.js';
 import PointView from '../view/point-view';
 
-const POINT_COUNT = 3;
+//const POINT_COUNT = 3;
 
 export default class BoardPresenter {
   sortComponent = new SortView();
-  editEventView = new EditEventView();
+  //editEventView = new EditEventView();
   eventListView = new EventListView();
 
-  constructor({container}) {
+  constructor({container, pointsModel}) {
     this.container = container;
+    this.pointsModel = pointsModel;
   }
 
   init() {
+    this.points = [...this.pointsModel.getPoints()];
+
     render(this.sortComponent, this.container);
     render(this.eventListView, this.container);
-    render(this.editEventView, this.eventListView.getElement());
+    render(new EditEventView({point: this.points[0]}), this.eventListView.getElement());
 
-    for (let i = 0; i < POINT_COUNT; i++) {
-      render(new PointView(), this.eventListView.getElement());
+    for (let i = 0; i < this.points.length; i++) {
+      render(new PointView({point: this.points[i]}), this.eventListView.getElement());
     }
   }
 }
