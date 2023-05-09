@@ -3,57 +3,69 @@ import {getRandomArrayElement, getRandomNumber} from '../util.js';
 
 const mockDestinations = [
   {
-    id: '71',
+    id: '10',
     description: getRandomArrayElement(DESCRIPTION),
     name: 'Geneva',
     pictures: [
       {
         src: `https://loremflickr.com/248/152?random=${getRandomNumber(1, 50)}`,
-        description: getRandomArrayElement(DESCRIPTION)
+        description: getRandomArrayElement(DESCRIPTION),
+      },
+      {
+        src: `https://loremflickr.com/248/152?random=${getRandomNumber(1, 50)}`,
+        description: getRandomArrayElement(DESCRIPTION),
       }
     ]
   },
   {
-    id: '72',
+    id: '11',
     description: getRandomArrayElement(DESCRIPTION),
     name: 'Rome',
     pictures: [
       {
         src: `https://loremflickr.com/248/152?random=${getRandomNumber(1, 50)}`,
-        description: getRandomArrayElement(DESCRIPTION)
+        description: getRandomArrayElement(DESCRIPTION),
       }
     ]
   },
   {
-    id: '73',
+    id: '12',
     description: getRandomArrayElement(DESCRIPTION),
     name: 'Amsterdam',
     pictures: [
       {
         src: `https://loremflickr.com/248/152?random=${getRandomNumber(1, 50)}`,
-        description: getRandomArrayElement(DESCRIPTION)
-      }
+        description: getRandomArrayElement(DESCRIPTION),
+      },
+      {
+        src: `https://loremflickr.com/248/152?random=${getRandomNumber(1, 50)}`,
+        description: getRandomArrayElement(DESCRIPTION),
+      },
     ]
   },
   {
-    id: '74',
+    id: '13',
     description: getRandomArrayElement(DESCRIPTION),
     name: 'Tokyo',
     pictures: [
       {
         src: `https://loremflickr.com/248/152?random=${getRandomNumber(1, 50)}`,
-        description: getRandomArrayElement(DESCRIPTION)
+        description: getRandomArrayElement(DESCRIPTION),
       }
     ]
   },
   {
-    id: '75',
+    id: '14',
     description: getRandomArrayElement(DESCRIPTION),
     name: 'Oslo',
     pictures: [
       {
         src: `https://loremflickr.com/248/152?random=${getRandomNumber(1, 50)}`,
-        description: getRandomArrayElement(DESCRIPTION)
+        description: getRandomArrayElement(DESCRIPTION),
+      },
+      {
+        src: `https://loremflickr.com/248/152?random=${getRandomNumber(1, 50)}`,
+        description: getRandomArrayElement(DESCRIPTION),
       }
     ]
   }
