@@ -4,11 +4,8 @@ import EditEventView from '../view/edit-event-view.js';
 import EventListView from '../view/event-list-view.js';
 import PointView from '../view/point-view';
 
-//const POINT_COUNT = 3;
-
 export default class BoardPresenter {
   sortComponent = new SortView();
-  //editEventView = new EditEventView();
   eventListView = new EventListView();
 
   constructor({container, pointsModel}) {
@@ -28,3 +25,13 @@ export default class BoardPresenter {
     }
   }
 }
+
+/*this.points.forEach((point) => {
+      render(
+        new PointView({
+         ({point: this.points[i]}),
+        this.eventListView.getElement()
+      );
+    });
+  }
+}*/
