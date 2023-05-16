@@ -1,4 +1,4 @@
-import {createElement} from '../render.js';
+import AbstractView from '../framework/view/abstract-view.js';
 import {mockOffers} from '../mock.js/offers.js';
 import {convertDateTimePoint} from '../util.js';
 
@@ -131,24 +131,15 @@ function createEditEventTemplate(point) {
   );
 }
 
-export default class EditEventView {
+export default class EditEventView extends AbstractView {
+  #point = null;
+
   constructor({point}) {
-    this.point = point;
+    super();
+    this.#point = point;
   }
 
-  getTemplate() {
-    return createEditEventTemplate(this.point);
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
+  get template() {
+    return createEditEventTemplate(this.#point);
   }
 }
