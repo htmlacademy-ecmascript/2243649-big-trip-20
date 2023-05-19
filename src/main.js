@@ -1,4 +1,4 @@
-import {render, RenderPosition} from './render.js';
+import {render, RenderPosition} from './framework/render.js';
 import FilterView from './view/filter-view.js';
 import InfoView from './view/info-view.js';
 import BoardPresenter from './presenter/board-presenter.js';
@@ -14,7 +14,7 @@ const boardPresenter = new BoardPresenter({
   pointsModel,
 });
 
-render(new InfoView(), tripMainElement, RenderPosition.AFTERBEGIN);
 render(new FilterView(), tripControlsFilter);
+render(new InfoView(), tripMainElement, RenderPosition.AFTERBEGIN);
 
 boardPresenter.init();

@@ -1,5 +1,5 @@
 import AbstractView from '../framework/view/abstract-view.js';
-import {humanizePointDate, humanizePointTime, convertDateTimePoint} from '../util.js';
+import {humanizePointDate, humanizePointTime, findDurationPointTime} from '../util.js';
 
 function createItemTemplate(point) {
   const {price, dateFrom, dateTo, type, destination, isFavorite, offers} = point;
@@ -7,7 +7,7 @@ function createItemTemplate(point) {
   const date = humanizePointDate(dateFrom);
   const timeFrom = humanizePointTime(dateFrom);
   const timeTo = humanizePointTime(dateTo);
-  const duration = convertDateTimePoint(dateTo, dateFrom);
+  const duration = findDurationPointTime(dateTo, dateFrom);
   const favoriteType = isFavorite ? 'event__favorite-btn--active' : '';
 
   return (
@@ -53,13 +53,23 @@ function createItemTemplate(point) {
 
 export default class PointView extends AbstractView {
   #point = null;
+  #handleEditClick = null;
 
-  constructor({point}) {
+  constructor({point, onEditClick}) {
     super();
     this.#point = point;
+    this.#handleEditClick = onEditClick;
+
+    this.element.querySelector('.event__rollup-btn')
+      .addEventListener('click', this.#editClickHandler);
   }
 
   get template() {
     return createItemTemplate(this.#point);
   }
+
+  #editClickHandler = (evt) => {
+    evt.preventDefault();
+    this.#handleEditClick();
+  };
 }
