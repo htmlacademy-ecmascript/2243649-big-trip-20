@@ -1,5 +1,5 @@
 import AbstractView from '../framework/view/abstract-view.js';
-import {humanizePointDate, humanizePointTime, findDurationPointTime} from '../util.js';
+import {humanizePointDate, humanizePointTime, findDurationPointTime} from '../utils/util.js';
 
 function createItemTemplate(point) {
   const {price, dateFrom, dateTo, type, destination, isFavorite, offers} = point;

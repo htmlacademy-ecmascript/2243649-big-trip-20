@@ -4,6 +4,8 @@ import InfoView from './view/info-view.js';
 import BoardPresenter from './presenter/board-presenter.js';
 import PointsModel from '../model/model.js';
 
+import {generateFilter} from './mock.js/filter.js';
+
 const tripMainElement = document.querySelector('.trip-main');
 const tripControlsFilter = document.querySelector('.trip-controls__filters');
 const tripEvents = document.querySelector('.trip-events');
@@ -14,7 +16,9 @@ const boardPresenter = new BoardPresenter({
   pointsModel,
 });
 
-render(new FilterView(), tripControlsFilter);
+const filters = generateFilter(pointsModel.points);
+
+render(new FilterView({filters}), tripControlsFilter);
 render(new InfoView(), tripMainElement, RenderPosition.AFTERBEGIN);
 
 boardPresenter.init();
