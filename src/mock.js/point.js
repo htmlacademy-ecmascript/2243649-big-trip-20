@@ -1,6 +1,6 @@
 import {mockOffers} from './offers';
 import {mockDestinations} from './destination.js';
-import {getRandomArrayElement, getRandomNumber} from '../util.js';
+import {getRandomArrayElement, getRandomNumber} from '../utils/util.js';
 import {TYPES} from '../const.js';
 
 const mockPoints = [
