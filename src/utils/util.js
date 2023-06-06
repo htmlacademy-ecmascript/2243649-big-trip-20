@@ -33,6 +33,10 @@ function convertDateTimePoint(date) {
   return date ? dayjs(date).format(DATE_TIME_FORMAT) : '';
 }
 
+function updateItem(items, update) {
+  return items.map((item) => item.id === update.id ? update : item);
+}
+
 export {
   getRandomArrayElement,
   getRandomNumber,
@@ -40,4 +44,5 @@ export {
   humanizePointTime,
   findDurationPointTime,
   convertDateTimePoint,
+  updateItem
 };
