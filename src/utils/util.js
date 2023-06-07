@@ -37,6 +37,39 @@ function updateItem(items, update) {
   return items.map((item) => item.id === update.id ? update : item);
 }
 
+function getWeightForNullDate(dateA, dateB) {
+  if (dateA === null && dateB === null) {
+    return 0;
+  }
+
+  if (dateA === null) {
+    return 1;
+  }
+
+  if (dateB === null) {
+    return -1;
+  }
+
+  return null;
+}
+
+function sortPointUp(pointA, pointB) {
+  const weight = getWeightForNullDate(pointA.dateFrom, pointB.dateFrom);
+  return weight ?? dayjs(pointA.dateFrom).diff(dayjs(pointB.dateFrom));
+}
+
+function sortTimeUp(pointA, pointB) {
+  const diffTimePointA = dayjs(pointA.dateTo).diff(dayjs(pointA.dateFrom));
+  const diffTimePointB = dayjs(pointB.dateTo).diff(dayjs(pointB.dateFrom));
+  const weight = getWeightForNullDate(diffTimePointA, diffTimePointB);
+  return weight ?? dayjs(diffTimePointA).diff(dayjs(diffTimePointB));
+}
+
+function sortPriceUp(pointA, pointB) {
+  const weight = getWeightForNullDate(pointA.price, pointB.price);
+  return weight ?? pointA.price - pointB.price;
+}
+
 export {
   getRandomArrayElement,
   getRandomNumber,
@@ -44,5 +77,6 @@ export {
   humanizePointTime,
   findDurationPointTime,
   convertDateTimePoint,
-  updateItem
+  updateItem,
+  sortPointUp, sortTimeUp, sortPriceUp
 };

@@ -220,8 +220,8 @@ const mockPoints = [
 
 function getRandomRoutPoint() {
   return {
+    ...getRandomArrayElement(mockPoints),
     id: nanoid(),
-    ...getRandomArrayElement(mockPoints)
   };
 }
 
