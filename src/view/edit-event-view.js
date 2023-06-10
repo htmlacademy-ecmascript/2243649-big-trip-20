@@ -1,15 +1,18 @@
-import AbstractView from '../framework/view/abstract-view.js';
-import {mockOffers} from '../mock.js/offers.js';
+//import AbstractView from '../framework/view/abstract-view.js';
+//import {mockOffers} from '../mock.js/offers.js';
 import {convertDateTimePoint} from '../utils/util.js';
 
-function createOffer (offers, isOffer) {
+import AbstractStatefulView from '../framework/view/abstract-stateful-view.js';
+
+
+function createOffer (offers) {
   return (
-    `${Object.entries(isOffer).map(([offer, yesOrNot]) => `<div class="event__offer-selector">
-      <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-1" type="checkbox" name="event-offer-${mockOffers.find((value) => value.id === offer).type}" ${yesOrNot ? 'checked' : ''}>
-      <label class="event__offer-label" for="event-offer-${mockOffers.find((value) => value.id === offer).type}-1">
-        <span class="event__offer-title">${mockOffers.find((value) => value.id === offer).title}</span>
+    `${offers.map((offer) => `<div class="event__offer-selector">
+      <input class="event__offer-checkbox  visually-hidden" id="event-offer-${offer.id}" type="checkbox" name="event-offer-${offer.id}" ${offer.checked ? 'checked' : ''}>
+      <label class="event__offer-label" for="event-offer-${offer.id}">
+        <span class="event__offer-title">${offer.id}</span>
         &plus;&euro;&nbsp;
-        <span class="event__offer-price">${mockOffers.find((value) => value.id === offer).price}</span>
+        <span class="event__offer-price">${offer.id}</span>
       </label>
     </div>`).join('')}`
   );
@@ -131,14 +134,22 @@ function createEditEventTemplate(point) {
   );
 }
 
-export default class EditEventView extends AbstractView {
+export default class EditEventView extends AbstractStatefulView {
   #point = null;
   #handleFormSubmit = null;
+  #offers = null;
+  #destinations = null;
 
-  constructor({point, onFormSubmit}) {
+  constructor({point, offers, destinations, onFormSubmit}) {
     super();
     this.#point = point;
+    this.#offers = offers;
+    this.#destinations = destinations;
+
+    this._setState(EditEventView.parsePointToState(point, offers, destinations));
     this.#handleFormSubmit = onFormSubmit;
+    this._restoreHandlers();
+
     this.element.querySelector('form')
       .addEventListener('submit', this.#formSubmitHandler);
     this.element.querySelector('form')
@@ -146,12 +157,22 @@ export default class EditEventView extends AbstractView {
   }
 
   get template() {
-    return createEditEventTemplate(this.#point);
+    return createEditEventTemplate(this._state);
   }
 
   #formSubmitHandler = (evt) => {
     evt.preventDefault();
-    this.#handleFormSubmit(this.#point);
+    this.#handleFormSubmit(EditEventView.parseStateToPoint(this._state));
   };
-}
 
+  static parsePointToState(point, allOffers, allDestinations) {
+    return {...point, allOffers, allDestinations
+    };
+  }
+
+  static parseStateToPoint(point) {
+
+
+    return point;
+  }
+}
