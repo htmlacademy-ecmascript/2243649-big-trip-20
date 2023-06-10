@@ -1,8 +1,6 @@
 import {render, replace, remove} from '../framework/render.js';
 import EditEventView from '../view/edit-event-view.js';
 import PointView from '../view/point-view.js';
-//import EditEventView
-//import PointView from '../view/point-view.js';
 
 const Mode = {
   DEFAULT: 'DEFAULT',
