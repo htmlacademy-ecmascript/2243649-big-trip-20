@@ -154,11 +154,32 @@ export default class EditEventView extends AbstractStatefulView {
       .addEventListener('submit', this.#formSubmitHandler);
     this.element.querySelector('form')
       .addEventListener('reset', this.#formSubmitHandler);
+    this.element.querySelector('.event__type-list')
+      .addEventListener('change', this.#typeChangeHandler);
+    this.element.querySelector('.event__input--destination')
+      .addEventListener('input', this.#destinationChangeHandler);
   }
 
   get template() {
     return createEditEventTemplate(this._state);
   }
+
+  #typeChangeHandler = (evt) => {
+    evt.preventDefault();
+    this.updateElement({
+      type: evt.target.value,
+    });
+  };
+
+  #destinationChangeHandler = (evt) => {
+    evt.preventDefault();
+    const destination = this.#destinations.find((value) => value.name.toLowerCase() === evt.target.value.toLowerCase());
+    if (destination) {
+      this.updateElement({
+        destination: destination.id,
+      });
+    }
+  };
 
   #formSubmitHandler = (evt) => {
     evt.preventDefault();
