@@ -149,7 +149,13 @@ export default class EditEventView extends AbstractStatefulView {
     this._setState(EditEventView.parsePointToState(point, offers, destinations));
     this.#handleFormSubmit = onFormSubmit;
     this._restoreHandlers();
+  }
 
+  get template() {
+    return createEditEventTemplate(this._state);
+  }
+
+  _restoreHandlers(){
     this.element.querySelector('form')
       .addEventListener('submit', this.#formSubmitHandler);
     this.element.querySelector('form')
@@ -158,10 +164,6 @@ export default class EditEventView extends AbstractStatefulView {
       .addEventListener('change', this.#typeChangeHandler);
     this.element.querySelector('.event__input--destination')
       .addEventListener('input', this.#destinationChangeHandler);
-  }
-
-  get template() {
-    return createEditEventTemplate(this._state);
   }
 
   #typeChangeHandler = (evt) => {
