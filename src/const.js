@@ -1,17 +1,5 @@
 const POINTS_COUNT = 6;
 
-const TYPES = [
-  'Taxi',
-  'Bus',
-  'Train',
-  'Ship',
-  'Drive',
-  'Flight',
-  'Check-in',
-  'Sightseeing',
-  'Restaurant'
-];
-
 const DESCRIPTION = [
   'Cras aliquet varius magna, non porta ligula feugiat eget.',
   'Aliquam id orci ut lectus varius viverra. Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante.',
@@ -33,4 +21,4 @@ const SortType = {
   PRICE: 'price',
 };
 
-export {POINTS_COUNT, TYPES, DESCRIPTION, FilterType, SortType};
+export {POINTS_COUNT, DESCRIPTION, FilterType, SortType};
