@@ -1,7 +1,8 @@
 import {convertDateTimePoint} from '../utils/util.js';
 
 import AbstractStatefulView from '../framework/view/abstract-stateful-view.js';
-
+import flatpickr from 'flatpickr';
+import 'flatpickr/dist/flatpickr.min.css';
 
 function createOffer (offers) {
   return (
