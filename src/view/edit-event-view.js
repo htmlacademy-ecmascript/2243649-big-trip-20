@@ -1,5 +1,3 @@
-//import AbstractView from '../framework/view/abstract-view.js';
-//import {mockOffers} from '../mock.js/offers.js';
 import {convertDateTimePoint} from '../utils/util.js';
 
 import AbstractStatefulView from '../framework/view/abstract-stateful-view.js';
