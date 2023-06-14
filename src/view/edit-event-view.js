@@ -175,6 +175,8 @@ export default class EditEventView extends AbstractStatefulView {
       .addEventListener('change', this.#typeChangeHandler);
     this.element.querySelector('.event__input--destination')
       .addEventListener('change', this.#destinationChangeHandler);
+
+    this.#setDatepicker();
   }
 
   #typeChangeHandler = (evt) => {
