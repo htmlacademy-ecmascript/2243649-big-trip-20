@@ -3,7 +3,7 @@ import {humanizePointDate, humanizePointTime, findDurationPointTime, getFormated
 import {MS_IN_HOUR} from '../const.js';
 
 function createItemTemplate(point, allOffers) {
-  const {price, dateFrom, dateTo, type, destination, isFavorite, offers} = point;
+  const {price, dateFrom, dateTo, type = 'taxi', destination, isFavorite, offers} = point;
 
   const date = humanizePointDate(dateFrom);
   const timeFrom = humanizePointTime(dateFrom);

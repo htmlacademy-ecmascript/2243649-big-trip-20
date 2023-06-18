@@ -36,10 +36,6 @@ function convertDateTimePoint(date) {
   return date ? dayjs(date).format(DATE_TIME_FORMAT) : '';
 }
 
-function updateItem(items, update) {
-  return items.map((item) => item.id === update.id ? update : item);
-}
-
 function getWeightForNullDate(dateA, dateB) {
   if (dateA === null && dateB === null) {
     return 0;
@@ -81,6 +77,5 @@ export {
   findDurationPointTime,
   getFormatedDuration,
   convertDateTimePoint,
-  updateItem,
   sortPointUp, sortTimeUp, sortPriceUp
 };
