@@ -21,4 +21,6 @@ const SortType = {
   PRICE: 'price',
 };
 
-export {POINTS_COUNT, DESCRIPTION, FilterType, SortType};
+const MS_IN_HOUR = 3600000;
+
+export {POINTS_COUNT, DESCRIPTION, FilterType, SortType, MS_IN_HOUR};
