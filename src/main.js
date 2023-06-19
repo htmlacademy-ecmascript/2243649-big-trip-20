@@ -5,15 +5,18 @@ import BoardPresenter from './presenter/board-presenter.js';
 import PointsModel from '../model/model.js';
 import FilterModel from '../model/filter-model.js';
 import FilterPresenter from './presenter/filter-presenter.js';
+import PointsApiService from '../src/point-api-service.js';
 
-//import {generateFilter} from './mock.js/filter.js';
-
+const AUTHORIZATION = 'Basic svsld49thbne45b';
+const END_POINT = 'https://20.ecmascript.pages.academy/big-trip';
 
 const tripMainElement = document.querySelector('.trip-main');
 const tripControlsFilter = document.querySelector('.trip-controls__filters');
 const tripEvents = document.querySelector('.trip-events');
 
-const pointsModel = new PointsModel();
+const pointsModel = new PointsModel({
+  pointsApiService: new PointsApiService(END_POINT, AUTHORIZATION)
+});
 const filterModel = new FilterModel();
 const boardPresenter = new BoardPresenter({
   container: tripEvents,
@@ -43,7 +46,11 @@ function handleNewPointButtonClick() {
 }
 
 render(new InfoView(), tripMainElement, RenderPosition.AFTERBEGIN);
-render(newPointButtonComponent, tripMainElement, RenderPosition.BEFOREEND);
+
 filterPresenter.init();
 
 boardPresenter.init();
+pointsModel.init()
+  .finally(() => {
+    render(newPointButtonComponent, tripMainElement, RenderPosition.BEFOREEND);
+  });
