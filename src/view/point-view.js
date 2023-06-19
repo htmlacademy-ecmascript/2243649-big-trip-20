@@ -1,8 +1,9 @@
 import AbstractView from '../framework/view/abstract-view.js';
 import {humanizePointDate, humanizePointTime, findDurationPointTime, getFormatedDuration} from '../utils/util.js';
+import {MS_IN_HOUR} from '../const.js';
 
 function createItemTemplate(point, allOffers) {
-  const {price, dateFrom, dateTo, type, destination, isFavorite, offers} = point;
+  const {price, dateFrom, dateTo, type = 'taxi', destination, isFavorite, offers} = point;
 
   const date = humanizePointDate(dateFrom);
   const timeFrom = humanizePointTime(dateFrom);
@@ -11,11 +12,11 @@ function createItemTemplate(point, allOffers) {
 
   let format = '';
 
-  if (duration.$ms < 3600000) {
+  if (duration.$ms < MS_IN_HOUR) {
     format = 'mm[m]';
-  } else if (duration.$ms >= 3600000 && duration.$ms < 3600000 * 24) {
+  } else if (duration.$ms >= MS_IN_HOUR && duration.$ms < MS_IN_HOUR * 24) {
     format = 'HH[h] mm[m]';
-  } else if (duration.$ms >= 3600000 * 24) {
+  } else if (duration.$ms >= MS_IN_HOUR * 24) {
     format = 'DD[d] HH[h] mm[m]';
   }
 
