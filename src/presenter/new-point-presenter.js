@@ -26,7 +26,8 @@ export default class NewPointPresenter {
       offers: this.#pointsModel.offers,
       destinations: this.#pointsModel.destinations,
       onFormSubmit: this.#handleFormSubmit,
-      onDeleteClick: this.#handleDeleteClick
+      onDeleteClick: this.#handleDeleteClick,
+      isCreating : true,
     });
 
     render(this.#pointEditComponent, this.#pointListContainer, RenderPosition.AFTERBEGIN);
@@ -51,6 +52,7 @@ export default class NewPointPresenter {
     this.#pointEditComponent.updateElement({
       isDisabled: true,
       isSaving: true,
+      isCreating: true,
     });
   }
 
@@ -60,6 +62,7 @@ export default class NewPointPresenter {
         isDisabled: false,
         isSaving: false,
         isDeleting: false,
+        isCreating: false,
       });
     };
 
@@ -72,7 +75,6 @@ export default class NewPointPresenter {
       UpdateType.MINOR,
       point,
     );
-    this.destroy();
   };
 
   #handleDeleteClick = () => {
