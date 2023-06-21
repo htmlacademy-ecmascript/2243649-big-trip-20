@@ -47,7 +47,7 @@ function createDestinationList (value) {
   );
 }
 
-function createEditEventTemplate(point) {
+function createEditEventTemplate(point, isCreating) {
   const {type = 'taxi', price, destination, offers = [], dateFrom, dateTo, allOffers, allDestinations, isDisabled, isSaving, isDeleting} = point;
   const offerType = allOffers.find((typeOffer) => typeOffer.type === type);
 
@@ -112,13 +112,14 @@ function createEditEventTemplate(point) {
         </label>
         <input class="event__input  event__input--price" id="event-price-1" type="number" name="event-price" value="${price}" ${isDisabled ? 'disabled' : ''}>
       </div>
-      <button class="event__save-btn  btn  btn--blue" type="submit"Save</button>
-      <button class="event__reset-btn" type="reset"Delete</button>
       <button class="event__save-btn  btn  btn--blue" type="submit" ${isDisabled ? 'disabled' : ''}>${isSaving ? 'Saving...' : 'Save'}</button>
-      <button class="event__reset-btn" type="reset" ${isDisabled ? 'disabled' : ''}>${isDeleting ? 'Deleting...' : 'Delete'}</button>
+      <button class="event__reset-btn" type="reset" ${isDisabled ? 'disabled' : ''}>${isCreating ? 'Cancel' : 'Delete'}${isDeleting ? 'Deleting...' : ''}</button>
+      <button class="event__rollup-btn" type="button">
+      <span class="visually-hidden">Open event</span>
+      </button>
     </header>
     <section class="event__details">
-    <section class="event__section  event__section--offers" ${isDisabled ? 'disabled' : ''}>
+    <section class="event__section  event__section--offers"> <section class="event__section  event__section--offers" ${isDisabled ? 'disabled' : ''}>
     <h3 class="event__section-title  event__section-title--offers">Offers</h3><div class="event__available-offers">${repeatingOffer}</div></section>
       <section class="event__section  event__section--destination">
         <h3 class="event__section-title  event__section-title--destination">Destination</h3>
@@ -143,8 +144,9 @@ export default class EditEventView extends AbstractStatefulView {
   #datepickerDateFrom = null;
   #datepickerDateTo = null;
   #handleDeleteClick = null;
+  #isCreating = null;
 
-  constructor({point, offers, destinations, onFormSubmit, onDeleteClick}) {
+  constructor({point, offers, destinations, onFormSubmit, onDeleteClick, isCreating = false}) {
     super();
     this.#point = point;
     this.#offers = offers;
@@ -153,11 +155,12 @@ export default class EditEventView extends AbstractStatefulView {
     this._setState(EditEventView.parsePointToState(point, offers, destinations));
     this.#handleFormSubmit = onFormSubmit;
     this.#handleDeleteClick = onDeleteClick;
+    this.#isCreating = isCreating;
     this._restoreHandlers();
   }
 
   get template() {
-    return createEditEventTemplate(this._state);
+    return createEditEventTemplate(this._state, this.#isCreating);
   }
 
   removeElement() {
@@ -243,7 +246,7 @@ export default class EditEventView extends AbstractStatefulView {
         enableTime: true,
         dateFormat: 'd/m/y H:i',
         defaultDate: convertDateTimePoint(this._state.dateFrom),
-        minDate: convertDateTimePoint(this._state.dateFrom),
+        maxDate: convertDateTimePoint(this._state.dateTo),
         onChange: this.#dateFromChangeHandler,
       },
     );
@@ -254,6 +257,7 @@ export default class EditEventView extends AbstractStatefulView {
         enableTime: true,
         dateFormat: 'd/m/y H:i',
         defaultDate: convertDateTimePoint(this._state.dateTo),
+        minDate: convertDateTimePoint(this._state.dateFrom),
         onChange: this.#dateToChangeHandler,
       },
     );
