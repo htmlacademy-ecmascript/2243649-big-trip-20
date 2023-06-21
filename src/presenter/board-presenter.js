@@ -8,6 +8,12 @@ import {sortPointUp, sortTimeUp, sortPriceUp} from '../utils/util.js';
 import {SortType, UpdateType, UserAction, FilterType} from '../const.js';
 import NewPointPresenter from './new-point-presenter.js';
 import LoadingView from '../view/loading-view.js';
+import UiBlocker from '../framework/ui-blocker/ui-blocker.js';
+
+const TimeLimitForUiBlocker = {
+  LOWER_LIMIT: 350,
+  UPPER_LIMIT: 1000,
+};
 
 export default class BoardPresenter {
   #sortComponent = null;
@@ -24,6 +30,10 @@ export default class BoardPresenter {
   #currentSortType = SortType.DEFAULT;
   #filterType = FilterType.EVERYTHING;
   #isLoading = true;
+  #uiBlocker = new UiBlocker({
+    lowerLimit: TimeLimitForUiBlocker.LOWER_LIMIT,
+    upperLimit: TimeLimitForUiBlocker.UPPER_LIMIT
+  });
 
   constructor({container, pointsModel, filterModel, onNewPointDestroy}) {
     this.#container = container;
@@ -87,6 +97,7 @@ export default class BoardPresenter {
     // actionType - действие пользователя, нужно чтобы понять, какой метод модели вызвать
     // updateType - тип изменений, нужно чтобы понять, что после нужно обновить
     // update - обновленные данные
+    this.#uiBlocker.block();
     switch (actionType) {
       case UserAction.UPDATE_POINT:
         this.#pointPresenters.get(update.id).setSaving();
@@ -113,6 +124,7 @@ export default class BoardPresenter {
         }
         break;
     }
+    this.#uiBlocker.unblock();
   };
 
   #handleModelEvent = (updateType, data) => {
