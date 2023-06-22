@@ -26,6 +26,7 @@ export default class NewPointPresenter {
       destinations: this.#pointsModel.destinations,
       onFormSubmit: this.#handleFormSubmit,
       onDeleteClick: this.#handleDeleteClick,
+      onFormExit : this.#handleExitClick,
       isCreating : true,
     });
 
@@ -85,5 +86,9 @@ export default class NewPointPresenter {
       evt.preventDefault();
       this.destroy();
     }
+  };
+
+  #handleExitClick = () => {
+    this.destroy();
   };
 }

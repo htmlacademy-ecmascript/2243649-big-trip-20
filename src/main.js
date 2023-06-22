@@ -42,7 +42,6 @@ function handleNewPointFormClose() {
 function handleNewPointButtonClick() {
   boardPresenter.createPoint();
   newPointButtonComponent.element.disabled = true;
-  document.querySelector('.event__reset-btn').textContent = 'Cancel';
 }
 
 render(new InfoView(), tripMainElement, RenderPosition.AFTERBEGIN);
