@@ -9,6 +9,7 @@ import {SortType, UpdateType, UserAction, FilterType} from '../const.js';
 import NewPointPresenter from './new-point-presenter.js';
 import LoadingView from '../view/loading-view.js';
 import UiBlocker from '../framework/ui-blocker/ui-blocker.js';
+import ErrorView from '../view/server-error-view.js';
 
 const TimeLimitForUiBlocker = {
   LOWER_LIMIT: 350,
@@ -20,6 +21,7 @@ export default class BoardPresenter {
   #eventListView = new EventListView();
   #noPointComponent = null;
 
+  #errorComponent = new ErrorView();
   #loadingComponent = new LoadingView();
   #container = null;
   #pointsModel = null;
@@ -170,6 +172,10 @@ export default class BoardPresenter {
     render(this.#loadingComponent, this.#container, RenderPosition.AFTERBEGIN);
   }
 
+  #renderServerError = () => {
+    render(this.#errorComponent, this.#container);
+  };
+
   #renderNoPoints() {
     this.#noPointComponent = new EmptyListView({
       filterType: this.#filterType
@@ -198,6 +204,12 @@ export default class BoardPresenter {
     const points = this.points;
     if (this.#isLoading) {
       this.#renderLoading();
+      return;
+    }
+
+    if (!points.length && !this.#pointsModel.destinations.length
+      && !this.#pointsModel.offers.length) {
+      this.#renderServerError();
       return;
     }
 
