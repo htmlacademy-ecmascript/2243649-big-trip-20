@@ -21,8 +21,6 @@ const SortType = {
   PRICE: 'price',
 };
 
-const MS_IN_HOUR = 3600000;
-
 const UserAction = {
   UPDATE_POINT: 'UPDATE_POINT',
   ADD_POINT: 'ADD_POINT',
@@ -37,5 +35,5 @@ const UpdateType = {
 };
 
 
-export {POINTS_COUNT, DESCRIPTION, FilterType, SortType, MS_IN_HOUR,
+export {POINTS_COUNT, DESCRIPTION, FilterType, SortType,
   UserAction, UpdateType};

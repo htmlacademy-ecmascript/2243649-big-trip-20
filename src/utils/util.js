@@ -6,17 +6,6 @@ const DATE_FORMAT = 'MMMM D';
 const TIME_FORMAT = 'HH:mm';
 const DATE_TIME_FORMAT = 'DD/MM/YY HH:mm';
 
-function getRandomArrayElement(items) {
-  return items[Math.floor(Math.random() * items.length)];
-}
-
-function getRandomNumber(a, b) {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
-}
-
 function humanizePointDate(date) {
   return date ? dayjs(date).format(DATE_FORMAT) : '';
 }
@@ -60,18 +49,16 @@ function sortPointUp(pointA, pointB) {
 function sortTimeUp(pointA, pointB) {
   const diffTimePointA = dayjs(pointA.dateTo).diff(dayjs(pointA.dateFrom));
   const diffTimePointB = dayjs(pointB.dateTo).diff(dayjs(pointB.dateFrom));
-  const weight = getWeightForNullDate(diffTimePointA, diffTimePointB);
+  const weight = getWeightForNullDate(diffTimePointB, diffTimePointA);
   return weight ?? dayjs(diffTimePointA).diff(dayjs(diffTimePointB));
 }
 
 function sortPriceUp(pointA, pointB) {
   const weight = getWeightForNullDate(pointA.price, pointB.price);
-  return weight ?? pointA.price - pointB.price;
+  return weight ?? pointB.price - pointA.price;
 }
 
 export {
-  getRandomArrayElement,
-  getRandomNumber,
   humanizePointDate,
   humanizePointTime,
   findDurationPointTime,
