@@ -6,10 +6,16 @@ export default class PointsModel extends Observable {
   #points = [];
   #offers = [];
   #destinations = [];
+  #isError = false;
 
   constructor({pointsApiService}) {
     super();
     this.#pointsApiService = pointsApiService;
+    this.#isError = false;
+  }
+
+  get isError() {
+    return this.#isError;
   }
 
   get points() {
@@ -38,6 +44,7 @@ export default class PointsModel extends Observable {
       this.#points = [];
       this.#destinations = [];
       this.#offers = [];
+      this.#isError = true;
     }
 
     this._notify(UpdateType.INIT);
